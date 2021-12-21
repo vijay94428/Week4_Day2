@@ -1,0 +1,61 @@
+package week5.day1;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class Sortable {
+
+	public static void main(String[] args) {
+		
+		
+		WebDriverManager.chromedriver().setup();
+		
+		
+		ChromeDriver driver = new ChromeDriver();
+		
+		driver.get("https://jqueryui.com/sortable/");
+		
+		
+		driver.manage().window().maximize();
+		
+		
+		driver.switchTo().frame(0);
+		
+		
+		
+		WebElement item1 = driver.findElement(By.xpath("(//li[@class='ui-state-default ui-sortable-handle'])[1]"));
+		WebElement item2 = driver.findElement(By.xpath("(//li[@class='ui-state-default ui-sortable-handle'])[2]"));
+
+		WebElement item3 = driver.findElement(By.xpath("(//li[@class='ui-state-default ui-sortable-handle'])[3]"));
+
+		WebElement item4 = driver.findElement(By.xpath("(//li[@class='ui-state-default ui-sortable-handle'])[4]"));
+
+		WebElement item5 = driver.findElement(By.xpath("(//li[@class='ui-state-default ui-sortable-handle'])[5]"));
+
+		WebElement item6 = driver.findElement(By.xpath("(//li[@class='ui-state-default ui-sortable-handle'])[6]"));
+
+		WebElement item7 = driver.findElement(By.xpath("(//li[@class='ui-state-default ui-sortable-handle'])[7]"));
+
+		
+		
+		
+		Actions a1 = new Actions(driver);
+		
+		
+		a1.clickAndHold(item1).moveToElement(item5, 50, 50).release().perform();
+		a1.clickAndHold(item2).moveToElement(item5, 50, 50).release().perform();
+		a1.clickAndHold(item3).moveToElement(item5, 50, 50).release().perform();
+		a1.clickAndHold(item4).moveToElement(item5, 50, 50).release().perform();
+		a1.clickAndHold(item5).moveToElement(item5, 50, 50).release().perform();
+		
+		
+		
+		
+		
+	}
+
+}
