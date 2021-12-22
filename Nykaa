@@ -1,0 +1,149 @@
+package week5.day1;
+
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class Nykaa {
+
+	public static void main(String[] args) throws InterruptedException {
+		
+		
+		WebDriverManager.chromedriver().setup();
+		
+		ChromeDriver driver = new ChromeDriver();
+		
+		driver.get("https://www.nykaa.com/");
+		
+		
+		driver.manage().window().maximize();
+		
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+		
+		Actions a1 = new Actions(driver);
+		
+		WebElement e1 = driver.findElement(By.xpath("//a[text()='brands']"));
+		
+		a1.moveToElement(e1).perform();
+		
+		WebElement e2 = driver.findElement(By.xpath("//div[@id='brandCont_Popular']//following::li[5]"));
+		
+		e2.click();
+		
+		String title = driver.getTitle();
+		
+		System.out.println(title);
+		
+		if(title.contains("L'Oreal Paris"))
+			
+		{
+			
+			System.out.println("Title contains L'Oreal Paris");
+		}
+		
+		else 
+			
+		{
+			System.out.println("Title is wrong");
+		}
+				
+				
+		driver.findElement(By.xpath("//span[@class='sort-name']")).click();
+		
+		driver.findElement(By.xpath("(//div[@class='control-indicator radio '])[3]")).click();
+		
+		driver.findElement(By.xpath("//div[@class='filter-open css-nbw8dp']")).click();
+		
+		driver.findElement(By.xpath("(//div[@class=' css-15dbf9i'])")).click();
+		
+		driver.findElement(By.xpath("//div[@class=' css-15dbf9i']//span")).click();
+		
+		
+		driver.findElement(By.xpath("//span[text()='Shampoo']")).click();
+		
+		driver.findElement(By.xpath("(//div[@class='filter-open css-nbw8dp'])[6]")).click();
+		driver.findElement(By.xpath("//span[text()='Color Protection']")).click();
+		
+		
+		String text = driver.findElement(By.xpath("//span[text()='Shampoo']")).getText();
+		
+		System.out.println(text);
+		
+		if(text.equals("Shampoo"))
+		{
+			
+			System.out.println("Filter is applied with shampoo");
+		}
+		
+		else
+		{
+			System.out.println("Filter is not applied with shampoo");
+			
+			
+		}
+		
+		
+		driver.findElement(By.xpath("(//div[@class='css-43m2vm'])[1]")).click();
+		
+		
+				Set<String> windowHandles = driver.getWindowHandles();
+			
+				List<String> s1 = new ArrayList<String>(windowHandles);
+				
+				System.out.println("Number of windows is "+s1.size());
+				
+				driver.switchTo().window(s1.get(1));
+				
+				String text2 = driver.findElement(By.xpath("//span[@class='css-12x6n3h']")).getText();
+				
+				
+				System.out.println("The MRP of the product is"+text2);
+				
+				
+				driver.findElement(By.xpath("//button[@class=' css-17hv1os']")).click();
+				driver.findElement(By.xpath("//button[@class='css-5s18zx eoh7kvv0']")).click();
+				
+				Thread.sleep(5000);
+				
+				
+				WebElement frame1 = driver.findElement(By.xpath("//iframe[@class='css-acpm4k']"));
+				
+				driver.switchTo().frame(frame1);
+				
+				
+				
+				String text3 = driver.findElement(By.xpath("(//div[@class='value'])[4]")).getText();				
+				
+		
+		System.out.println("The Grand Total Amount is "+text3);
+		
+		driver.findElement(By.xpath("//span[text()='PROCEED']")).click();
+		
+		driver.findElement(By.xpath("//button[@class='btn full big']")).click();
+		
+		String FinalAmount = driver.findElement(By.xpath("(//div[@class='value'])[2]")).getText();
+		
+		if(FinalAmount.equals(text3))
+		{
+			System.out.println("The Total Grand amount is verified");
+		}
+		
+		else
+			
+		{
+			System.out.println("The Total Grand amount is wrong");
+		}
+		
+		driver.quit();
+
+	}
+
+}
