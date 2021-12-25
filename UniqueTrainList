@@ -1,0 +1,103 @@
+package week5.day1;
+
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class Uniquetrainlist {
+
+	public static void main(String[] args) throws InterruptedException {
+
+
+WebDriverManager.chromedriver().setup();
+		
+		
+		ChromeDriver driver = new ChromeDriver();
+		
+		driver.get("https://erail.in/");
+
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+		
+		driver.findElement(By.xpath("//button[@id='details-button']")).click();
+		driver.findElement(By.xpath("//a[@id='proceed-link']")).click();
+		
+		
+		WebElement fromstation = driver.findElement(By.id("txtStationFrom"));
+		
+		
+		fromstation.clear();
+		fromstation.sendKeys("ms");
+		Thread.sleep(500);
+		fromstation.sendKeys(Keys.TAB);
+		
+		
+WebElement tostation = driver.findElement(By.id("txtStationTo"));
+		
+		
+tostation.clear();
+tostation.sendKeys("mdu");
+Thread.sleep(500);
+
+tostation.sendKeys(Keys.TAB);
+
+
+
+		driver.findElement(By.id("chkSelectDateOnly")).click();
+		
+		Thread.sleep(5000);
+		
+		//driver.findElement(By.xpath("//table[@class='DataTable DataTableHeader TrainList TrainListHeader']"));
+		
+		
+int rowscount = driver.findElements(By.xpath("//table[@class='DataTable TrainList TrainListHeader']//tr")).size();
+		
+		System.out.println(rowscount);
+	
+		
+	List<String> trainNames = new ArrayList<String>();
+	
+		
+		for (int i = 1; i <=rowscount ; i++) {
+			
+			String text = driver.findElement(By.xpath("//table[@class='DataTable TrainList TrainListHeader']//tr["+i+"]/td[2]")).getText();
+				
+		System.out.println(text);
+		trainNames.add(text);
+		
+	
+		}
+		
+		//Set<String> setNames = new LinkedHashSet<String>(trainNames);
+		System.out.println("the train names are " +trainNames);
+		
+		System.out.println("The size of the train list is "+trainNames.size());
+		
+		Set<String> setTrains = new HashSet<String>(trainNames);
+		
+		System.out.println("Unique trains size using set  is "+setTrains.size());
+		
+		
+		
+		
+
+	}
+	
+	
+	
+	
+	
+	
+}
